@@ -1,4 +1,4 @@
-name: sqlalchemy-gizmosql-adbc-dialect-ci
+name: superset-sqlalchemy-gizmosql-adbc-dialect-ci
 
 on:
   workflow_dispatch:
