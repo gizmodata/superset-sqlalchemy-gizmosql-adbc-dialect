@@ -10,8 +10,8 @@ where = ["src"]  # list of folders that contain the packages (["."] by default)
 include = ["*"]  # package names should match these glob patterns (["*"] by default)
 
 [project]
-name = "sqlalchemy-gizmosql-adbc-dialect"
-version = "0.0.24"
+name = "superset-sqlalchemy-gizmosql-adbc-dialect"
+version = "0.0.0"
 description = "A SQLAlchemy dialect for connecting to a [GizmoSQL](https://github.com/gizmodata/gizmosql) server with ADBC"
 readme = "README.md"
 authors = [{ name = "Philip Moore", email = "prmoore77@hotmail.com" }]
@@ -23,9 +23,8 @@ classifiers = [
 ]
 keywords = ["sqlalchemy", "flight-sql", "gizmosql", "adbc", "dialect"]
 dependencies = [
-    "sqlalchemy==2.0.*",
-    "adbc-driver-flightsql==1.7.*",
-    "pyarrow==21.0.*",
+    "apache-superset==5.0.*",
+    "adbc-driver-flightsql==1.8.*",
     "psycopg2==2.9.*",
     "importlib-metadata==8.7.*"
 ]
@@ -55,7 +54,7 @@ Homepage = "https://github.com/gizmodata/sqlalchemy-gizmosql-adbc-dialect"
 [project.scripts]
 
 [tool.bumpver]
-current_version = "0.0.24"
+current_version = "0.0.0"
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true

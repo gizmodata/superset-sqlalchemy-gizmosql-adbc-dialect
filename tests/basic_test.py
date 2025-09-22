@@ -9,7 +9,7 @@ def test_sqlalchemy_basics(session_and_metadata):
     session.add(FakeModel(id=1, name="Joe"))
     session.commit()
 
-    print(f"Fake table contents: {session.execute(text("SELECT * FROM fake")).fetchall()}")
+    print(f"Fake table contents: {session.execute(text('SELECT * FROM fake')).fetchall()}")
 
     joe = session.query(FakeModel).filter(FakeModel.name == "Joe").first()
 

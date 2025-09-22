@@ -1,25 +1,27 @@
-# SQLAlchemy [GizmoSQL](https://github.com/gizmodata/GizmoSQL) ADBC Dialect 
+# Superset SQLAlchemy [GizmoSQL](https://github.com/gizmodata/GizmoSQL) ADBC Dialect 
 
-[<img src="https://img.shields.io/badge/GitHub-gizmodata%2Fsqlalchemy--gizmosql--adbc--dialect-blue.svg?logo=Github">](https://github.com/gizmodata/sqlalchemy-gizmosql-adbc-dialect)
-[![sqlalchemy-gizmosql-adbc-dialect-ci](https://github.com/gizmodata/sqlalchemy-gizmosql-adbc-dialect/actions/workflows/ci.yml/badge.svg)](https://github.com/gizmodata/sqlalchemy-gizmosql-adbc-dialect/actions/workflows/ci.yml)
-[![Supported Python Versions](https://img.shields.io/pypi/pyversions/sqlalchemy--gizmosql--adbc--dialect)](https://pypi.org/project/sqlalchemy-gizmosql-adbc-dialect/)
-[![PyPI version](https://badge.fury.io/py/sqlalchemy-gizmosql-adbc-dialect.svg)](https://badge.fury.io/py/sqlalchemy-gizmosql-adbc-dialect)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/sqlalchemy-gizmosql-adbc-dialect.svg)](https://pypi.org/project/sqlalchemy-gizmosql-adbc-dialect/)
+[<img src="https://img.shields.io/badge/GitHub-gizmodata%2Fsuperset--sqlalchemy--gizmosql--adbc--dialect-blue.svg?logo=Github">](https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-dialect)
+[![superset-sqlalchemy-gizmosql-adbc-dialect-ci](https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-dialect/actions/workflows/ci.yml/badge.svg)](https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-dialect/actions/workflows/ci.yml)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/superset--sqlalchemy--gizmosql--adbc--dialect)](https://pypi.org/project/superset-sqlalchemy-gizmosql-adbc-dialect/)
+[![PyPI version](https://badge.fury.io/py/superset-sqlalchemy-gizmosql-adbc-dialect.svg)](https://badge.fury.io/py/superset-sqlalchemy-gizmosql-adbc-dialect)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/superset-sqlalchemy-gizmosql-adbc-dialect.svg)](https://pypi.org/project/superset-sqlalchemy-gizmosql-adbc-dialect/)
 
-Basic SQLAlchemy dialect for [GizmoSQL](https://github.com/gizmodata/GizmoSQL)
+Basic Apache Superset compatible SQLAlchemy dialect for [GizmoSQL](https://github.com/gizmodata/GizmoSQL)
+
+This package uses a version of SQLAlchemy which is compatible with Apache Superset 5.0.*
 
 ## Installation
 
 ### Option 1 - from PyPi
 ```sh
-$ pip install sqlalchemy-gizmosql-adbc-dialect
+$ pip install superset-sqlalchemy-gizmosql-adbc-dialect
 ```
 
 ### Option 2 - from source - for development
 ```shell
-git clone https://github.com/gizmodata/sqlalchemy-gizmosql-adbc-dialect
+git clone https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-dialect
 
-cd sqlalchemy-gizmosql-adbc-dialect
+cd superset-sqlalchemy-gizmosql-adbc-dialect
 
 # Create the virtual environment
 python3 -m venv .venv
