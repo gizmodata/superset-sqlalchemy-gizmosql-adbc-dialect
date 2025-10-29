@@ -234,9 +234,10 @@ class GizmoSQLDialect(DefaultDialect):
             **kw: Any,
     ) -> Any:
         s = """
-            SELECT DISTINCT 
-                   table_schema AS schema_name
-              FROM information_schema.tables
+            SELECT DISTINCT
+                table_schema AS schema_name
+            FROM information_schema.tables
+            WHERE table_catalog = current_catalog()
             ORDER BY 1 ASC
             """
         with connection.connection.cursor() as cur:
