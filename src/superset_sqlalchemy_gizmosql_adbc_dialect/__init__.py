@@ -158,16 +158,16 @@ class GizmoSQLDialect(DefaultDialect):
 
         db_kwargs = {DatabaseOptions.TLS_SKIP_VERIFY.value: str(disable_certificate_verification).lower()}
 
-        if username is not None:
+        if username:
             db_kwargs["username"] = username
-        if password is not None:
+        if password:
             db_kwargs["password"] = password
 
         # Add any remaining query args as connection kwargs (RPC headers)
         conn_kwargs = dict()
 
         # Set the catalog if it is specified..
-        if catalog is not None:
+        if catalog:
             conn_kwargs["adbc.connection.catalog"] = catalog
 
         for key, value in kwargs.items():
