@@ -135,5 +135,17 @@ if __name__ == "__main__":
     main()
 ```
 
+### Superset - connection URL example
+Here is a example connection URL (for use with Apache Superset):
+```text
+gizmosql://gizmosql_username:gizmosql_password@localhost:31337?disableCertificateVerification=True&useEncryption=True
+```
+
+To specify a catalog other than the default - you can specify the `catalog` argument - example:
+```text
+gizmosql://gizmosql_username:gizmosql_password@localhost:31337?disableCertificateVerification=True&useEncryption=True&catalog=test
+```
+
+
 ### Credits
 Much code and inspiration was taken from repo: https://github.com/Mause/duckdb_engine
