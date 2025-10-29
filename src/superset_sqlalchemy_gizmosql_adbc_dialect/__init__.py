@@ -119,7 +119,7 @@ class GizmoSQLDialect(DefaultDialect):
         password = opts.get('password', None)
         host = opts.get('host', None)
         port = opts.get('port', None)
-        database = opts.get('database', None)
+        catalog = opts.get('catalog', None)
 
         # Get Query parameters
         query_dict = dict(url.query)
@@ -128,7 +128,7 @@ class GizmoSQLDialect(DefaultDialect):
         args = dict()
         kwargs = dict(host=host,
                       port=port,
-                      database=database,
+                      catalog=catalog,
                       username=username,
                       password=password,
                       use_encryption=use_encryption,
@@ -152,7 +152,7 @@ class GizmoSQLDialect(DefaultDialect):
 
         uri = f"{protocol}://{kwargs.pop('host')}:{kwargs.pop('port')}"
 
-        database = kwargs.pop('database', None)
+        catalog = kwargs.pop('catalog', None)
         username = kwargs.pop('username')
         password = kwargs.pop('password')
 
@@ -166,9 +166,9 @@ class GizmoSQLDialect(DefaultDialect):
         # Add any remaining query args as connection kwargs (RPC headers)
         conn_kwargs = dict()
 
-        # Set the catalog if the database is specified..
-        if database is not None:
-            conn_kwargs["adbc.connection.catalog"] = database
+        # Set the catalog if it is specified..
+        if catalog is not None:
+            conn_kwargs["adbc.connection.catalog"] = catalog
 
         for key, value in kwargs.items():
             conn_kwargs[f"{ConnectionOptions.RPC_CALL_HEADER_PREFIX.value}{key}"] = value
@@ -234,10 +234,9 @@ class GizmoSQLDialect(DefaultDialect):
             **kw: Any,
     ) -> Any:
         s = """
-            SELECT DISTINCT table_catalog
-                                || '.'
-                                || table_schema AS schema_name
-            FROM information_schema.tables
+            SELECT DISTINCT 
+                   table_schema AS schema_name
+              FROM information_schema.tables
             ORDER BY 1 ASC
             """
         with connection.connection.cursor() as cur:
@@ -245,14 +244,6 @@ class GizmoSQLDialect(DefaultDialect):
             rs = cur.fetchall()
 
         return [row[0] for row in rs]
-
-    @staticmethod
-    def parse_catalog_and_schema(schema_str: str) -> Tuple[Optional[str], Optional[str]]:
-        table_catalog, table_schema = None, None
-        if schema_str:
-            table_catalog, table_schema = schema_str.split(".")
-
-        return table_catalog, table_schema
 
     def get_table_names(
             self,
@@ -264,16 +255,13 @@ class GizmoSQLDialect(DefaultDialect):
         s = """
             SELECT table_name
             FROM information_schema.tables
-            WHERE table_catalog = COALESCE(?, current_catalog())
+            WHERE table_catalog = current_catalog()
               AND table_type = 'BASE TABLE'
               AND table_schema = ?
             ORDER BY 1 ASC
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main"
-                                                 ]
+            cur.execute(operation=s, parameters=[schema if schema else "main"]
                         )
             rs = cur.fetchall()
 
@@ -292,15 +280,13 @@ class GizmoSQLDialect(DefaultDialect):
                  , is_nullable
                  , column_default
             FROM information_schema.columns
-            WHERE table_catalog = COALESCE(?, current_catalog())
+            WHERE table_catalog = current_catalog()
               AND table_schema = ?
               AND table_name = ?
             ORDER BY ordinal_position ASC
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main",
+            cur.execute(operation=s, parameters=[schema if schema else "main",
                                                  table_name
                                                  ]
                         )
@@ -361,16 +347,13 @@ class GizmoSQLDialect(DefaultDialect):
         s = """
             SELECT table_name
             FROM information_schema.tables
-            WHERE table_catalog = COALESCE(?, current_catalog())
+            WHERE table_catalog = current_catalog()
               AND table_type = 'VIEW'
               AND table_schema = ?
             ORDER BY 1
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main"
-                                                 ]
+            cur.execute(operation=s, parameters=[schema if schema else "main"]
                         )
             rs = cur.fetchall()
 
@@ -386,14 +369,12 @@ class GizmoSQLDialect(DefaultDialect):
         s = """
             SELECT 1
             FROM information_schema.tables
-            WHERE table_catalog = COALESCE(?, current_catalog())
+            WHERE table_catalog = current_catalog()
               AND table_schema = ?
               AND table_name = ?
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main",
+            cur.execute(operation=s, parameters=[schema if schema else "main",
                                                  table_name
                                                  ]
                         )
@@ -414,14 +395,12 @@ class GizmoSQLDialect(DefaultDialect):
                  , constraint_column_names
             FROM duckdb_constraints()
             WHERE constraint_type = 'PRIMARY KEY'
-              AND database_name = COALESCE(?, current_catalog())
+              AND database_name = current_catalog()
               AND schema_name = ?
               AND table_name = ?
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main",
+            cur.execute(operation=s, parameters=[schema if schema else "main",
                                                  table_name
                                                  ]
                         )
@@ -452,15 +431,13 @@ class GizmoSQLDialect(DefaultDialect):
                  , referenced_column_names AS referred_columns
             FROM duckdb_constraints()
             WHERE constraint_type = 'FOREIGN KEY'
-              AND database_name = COALESCE(?, current_catalog())
+              AND database_name = current_catalog()
               AND schema_name = ?
               AND table_name = ?
             ORDER BY constraint_name ASC
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main",
+            cur.execute(operation=s, parameters=[schema if schema else "main",
                                                  table_name
                                                  ]
                         )
@@ -490,14 +467,12 @@ class GizmoSQLDialect(DefaultDialect):
                  , expression AS sqltext
             FROM duckdb_constraints()
             WHERE constraint_type = 'CHECK'
-              AND database_name = COALESCE(?, current_catalog())
+              AND database_name = current_catalog()
               AND schema_name = ?
               AND table_name = ?
             """
-        table_catalog, table_schema = self.parse_catalog_and_schema(schema_str=schema)
         with connection.connection.cursor() as cur:
-            cur.execute(operation=s, parameters=[table_catalog,
-                                                 table_schema if table_schema is not None else "main",
+            cur.execute(operation=s, parameters=[schema if schema else "main",
                                                  table_name
                                                  ]
                         )
