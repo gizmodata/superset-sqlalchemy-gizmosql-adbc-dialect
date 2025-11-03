@@ -119,12 +119,13 @@ class GizmoSQLDialect(DefaultDialect):
         password = opts.get('password', None)
         host = opts.get('host', None)
         port = opts.get('port', None)
-        catalog = opts.get('catalog', None)
 
         # Get Query parameters
         query_dict = dict(url.query)
         use_encryption = query_dict.pop('useEncryption', None)
         disable_certificate_verification = query_dict.pop('disableCertificateVerification', None)
+        catalog = query_dict.pop('catalog', None)
+
         args = dict()
         kwargs = dict(host=host,
                       port=port,
