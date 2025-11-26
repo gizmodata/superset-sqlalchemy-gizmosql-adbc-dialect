@@ -24,7 +24,7 @@ classifiers = [
 keywords = ["apache", "superset", "sqlalchemy", "flight-sql", "gizmosql", "adbc", "dialect"]
 dependencies = [
     "apache-superset==5.0.*",
-    "adbc-driver-flightsql==1.8.*",
+    "adbc-driver-flightsql==1.9.*",
     "psycopg2-binary==2.9.*",
     "importlib-metadata==8.7.*"
 ]

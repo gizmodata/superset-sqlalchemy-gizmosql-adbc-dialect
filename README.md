@@ -10,6 +10,10 @@ Basic Apache Superset compatible SQLAlchemy dialect for [GizmoSQL](https://githu
 
 This package uses a version of SQLAlchemy which is compatible with Apache Superset 5.0.*
 
+> [!NOTE]
+> The term "dialect" is used in SQLAlchemy to refer to a specific database backend.  See: https://docs.sqlalchemy.org/en/20/dialects/ for more details.
+> This package uses a DuckDB SQL dialect when sending SQL commmands to the GizmoSQL server.
+
 ## Installation
 
 ### Option 1 - from PyPi
@@ -60,6 +64,9 @@ docker run --name gizmosql \
            --pull missing \
            gizmodata/gizmosql:latest
 ```
+
+> [!IMPORTANT]
+> The GizmoSQL server must be started with the DuckDB (default) back-end.  The SQLite back-end is not supported.
 
 ### Connect with the SQLAlchemy GizmoSQL ADBC Dialect
 ```python
