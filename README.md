@@ -12,7 +12,7 @@ This package uses a version of SQLAlchemy which is compatible with Apache Supers
 
 > [!NOTE]
 > The term "dialect" is used in SQLAlchemy to refer to a specific database backend.  See: https://docs.sqlalchemy.org/en/20/dialects/ for more details.
-> This package uses a DuckDB SQL dialect when sending SQL commmands to the GizmoSQL server.
+> This package uses a DuckDB SQL dialect when sending SQL commands to the GizmoSQL server.
 
 ## Installation
 
