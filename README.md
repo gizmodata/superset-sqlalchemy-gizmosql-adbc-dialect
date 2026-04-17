@@ -4,11 +4,11 @@
 [![superset-sqlalchemy-gizmosql-adbc-dialect-ci](https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-dialect/actions/workflows/ci.yml/badge.svg)](https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-dialect/actions/workflows/ci.yml)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/superset--sqlalchemy--gizmosql--adbc--dialect)](https://pypi.org/project/superset-sqlalchemy-gizmosql-adbc-dialect/)
 [![PyPI version](https://badge.fury.io/py/superset-sqlalchemy-gizmosql-adbc-dialect.svg)](https://badge.fury.io/py/superset-sqlalchemy-gizmosql-adbc-dialect)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/superset-sqlalchemy-gizmosql-adbc-dialect.svg)](https://pypi.org/project/superset-sqlalchemy-gizmosql-adbc-dialect/)
+[![PyPI Downloads](https://img.shields.io/pepy/dt/superset-sqlalchemy-gizmosql-adbc-dialect.svg)](https://pypi.org/project/superset-sqlalchemy-gizmosql-adbc-dialect/)
 
 Basic Apache Superset compatible SQLAlchemy dialect for [GizmoSQL](https://github.com/gizmodata/GizmoSQL)
 
-This package uses a version of SQLAlchemy which is compatible with Apache Superset 5.0.*
+This package uses a version of SQLAlchemy which is compatible with Apache Superset 6.0.*
 
 > [!NOTE]
 > The term "dialect" is used in SQLAlchemy to refer to a specific database backend.  See: https://docs.sqlalchemy.org/en/20/dialects/ for more details.
