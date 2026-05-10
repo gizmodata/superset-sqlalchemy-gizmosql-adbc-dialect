@@ -12,7 +12,7 @@ from sqlalchemy.engine.url import URL
 from .sqlalchemy_interfaces import ReflectedColumn, ReflectedPrimaryKeyConstraint, ReflectedForeignKeyConstraint, \
     ReflectedCheckConstraint
 
-__version__ = "0.0.9"
+__version__ = "0.0.10"
 
 if TYPE_CHECKING:
     from sqlalchemy.base import Connection

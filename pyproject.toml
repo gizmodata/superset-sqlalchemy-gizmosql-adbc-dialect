@@ -11,7 +11,7 @@ include = ["*"]  # package names should match these glob patterns (["*"] by defa
 
 [project]
 name = "superset-sqlalchemy-gizmosql-adbc-dialect"
-version = "0.0.9"
+version = "0.0.10"
 description = "An Apache Superset compatible SQLAlchemy dialect for connecting to a [GizmoSQL](https://github.com/gizmodata/gizmosql) server with ADBC"
 readme = "README.md"
 authors = [{ name = "Philip Moore", email = "philip@gizmodata.com" }]
@@ -23,8 +23,8 @@ classifiers = [
 ]
 keywords = ["apache", "superset", "sqlalchemy", "flight-sql", "gizmosql", "adbc", "dialect"]
 dependencies = [
-    "apache-superset==5.0.*",
-    "adbc-driver-flightsql==1.9.*",
+    "apache-superset==6.0.*",
+    "adbc-driver-flightsql==1.10.*",
     "psycopg2-binary==2.9.*",
     "importlib-metadata==8.7.*"
 ]
@@ -43,7 +43,8 @@ test = [
   "dask",
   "distributed",
   "pins[gcs]",
-  "docker"
+  "gizmosql>=1.26.0,<2",
+  "cryptography>=42",
 ]
 
 dev = ["bumpver", "pip-tools", "pytest"]
@@ -54,7 +55,7 @@ Homepage = "https://github.com/gizmodata/superset-sqlalchemy-gizmosql-adbc-diale
 [project.scripts]
 
 [tool.bumpver]
-current_version = "0.0.9"
+current_version = "0.0.10"
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
